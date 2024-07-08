@@ -1,0 +1,14 @@
+{
+    "name": "lauta/platzi-php-database",
+    "description": "Curso de PHP: Bases de datos",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lautaro Barrera",
+            "email": "lautarobarrera12@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
