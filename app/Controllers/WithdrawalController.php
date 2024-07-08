@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Database\PDO\Connection;
+
 class WithdrawalController {
     /**
      * Muestra una lista de recursos
@@ -16,7 +18,30 @@ class WithdrawalController {
     /**
      * Guarda un nuevo recurso en la base de datos
      */
-    public function store(){}
+    public function store($data){
+        // $payment_method = $data["payment_method"];
+        // $type = $data["type"];
+        // $date = $data["date"];
+        // $amount = $data["amount"];
+        // $description = $data["description"];
+
+        $connection = Connection::getIntance()->getConnection();
+
+        $stmt = $connection->prepare("INSERT INTO withdrawals (payment_method, type, date, amount, description) VALUES (
+        :payment_method, 
+        :type, 
+        :date, 
+        :amount, 
+        :description)");
+
+        $stmt->bindParam(":payment_method", $data["payment_method"]);
+        $stmt->bindParam(":type", $data["type"]);
+        $stmt->bindParam(":date", $data["date"]);
+        $stmt->bindParam(":amount", $data["amount"]);
+        $stmt->bindParam(":description", $data["description"]);
+
+        $stmt->execute();
+        }
 
     /**
      * Muestra un unico recurso especificado
