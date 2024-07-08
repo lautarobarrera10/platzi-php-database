@@ -19,17 +19,21 @@ class IncomesController {
      * Guarda un nuevo recurso en la base de datos
      */
     public function store($data){
+        $payment_method = $data["payment_method"];
+        $type = $data["type"];
+        $date = $data["date"];
+        $mount = $data["amount"];
+        $description = $data["description"];
+
         $connection = Connection::getInstance()->getConnection();
 
-        $connection->query(
-            "INSERT INTO incomes (payment_method, type, date, amount, description) VALUES (
-            {$data["payment_method"]},
-            {$data["type"]},
-            '{$data["date"]}',
-            {$data["amount"]},
-            '{$data["description"]}'
-            );"
-        );
+        $stmt = $connection->prepare("INSERT INTO incomes (payment_method, type, date, amount, description) VALUES (?,?,?,?,?);");
+
+        $stmt->bind_param("iisds", $payment_method, $type, $date, $mount, $description);
+
+        $stmt->execute();
+
+        echo "Se han insertado {$stmt->affected_rows} fila/s";
     }
 
     /**
