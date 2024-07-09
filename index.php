@@ -19,11 +19,15 @@ date_default_timezone_set("America/Argentina/San_Luis");
 //     "description" => "Pago de mi salario como programador."
 // ]);
 
+// $withdrawal_controller = new WithdrawalController;
+// $withdrawal_controller->store([
+//     "payment_method" => PaymentMethodEnum::CreditCard->value,
+//     "type" => WithdrawalTypeEnum::Purchase->value,
+//     "date" => date("Y-m-d H:i:s"),
+//     "amount" => 50,
+//     "description" => "Compra de accesorio para la PC"
+// ]);
+
 $withdrawal_controller = new WithdrawalController;
-$withdrawal_controller->store([
-    "payment_method" => PaymentMethodEnum::CreditCard->value,
-    "type" => WithdrawalTypeEnum::Purchase->value,
-    "date" => date("Y-m-d H:i:s"),
-    "amount" => 50,
-    "description" => "Compra de accesorio para la PC"
-]);
+// $withdrawal_controller->index();
+$withdrawal_controller->show(1);
