@@ -8,7 +8,7 @@ class WithdrawalController {
     private $connection;
 
     public function __construct(){
-        $this->connection = Connection::getIntance()->getConnection();
+        $this->connection = Connection::getInstance()->getConnection();
     }
 
 
@@ -83,10 +83,43 @@ class WithdrawalController {
     /**
      * Actualiza un recurso especifico en la base de datos
      */
-    public function update(){}
+    public function update(array $data){
+        $stmt = $this->connection->prepare("UPDATE withdrawals SET 
+        payment_method = :payment_method,
+        type = :type,
+        date = :date,
+        amount = :amount,
+        description = :description
+        WHERE id = :id"
+        );
+
+        $stmt->execute([
+            ":payment_method" => $data["payment_method"],
+            ":type" => $data["type"],
+            ":date" => $data["date"],
+            ":amount" => $data["amount"],
+            ":description" => $data["description"],
+            ":id" => $data["id"],
+        ]);
+    }
 
     /**
      * Elimina un recurso de la base de datos
      */
-    public function destroy(){}
+    public function destroy(int $id){
+        $this->connection->beginTransaction();
+        
+        $stmt = $this->connection->prepare("DELETE FROM withdrawals WHERE id = :id");
+        $stmt->execute([":id" => $id]);
+
+        $sure = readline("¿Estás seguro que queires eliminar este registro? ");
+
+        if ($sure == "si"){
+            $this->connection->commit();
+            echo "Eliminado con exito";
+        } else {
+            $this->connection->rollBack();
+            echo "No eliminado";
+        }
+    }
 }

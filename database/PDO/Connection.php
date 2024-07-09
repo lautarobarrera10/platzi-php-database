@@ -10,14 +10,14 @@ $dotenv = Dotenv::createImmutable("C:\Users\lauta\Documents\dev\platzi-php-datab
 $dotenv->load();
 
 class Connection {
-    private static $intance;
+    private static $instance;
     private $connection;
 
-    public static function getIntance(){
-        if (!self::$intance instanceof self)
-            self::$intance = new self;
+    public static function getInstance(){
+        if (!self::$instance instanceof self)
+            self::$instance = new self;
 
-        return self::$intance;
+        return self::$instance;
     }
 
     public function getConnection(){
