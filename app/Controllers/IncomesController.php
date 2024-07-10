@@ -21,7 +21,7 @@ class IncomesController {
         $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         foreach($results as $result)
-            echo "Ganaste {$result['amount']} en concepto de {$result['description']} \n";
+            echo "Ganaste {$result['amount']} en concepto de {$result['description']} <br>";
     }
 
     /**
